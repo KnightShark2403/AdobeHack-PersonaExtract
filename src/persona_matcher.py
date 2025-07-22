@@ -7,20 +7,19 @@ import math
 
 class PersonaMatcher:
     def __init__(self):
-        # Load lightweight sentence transformer (under 1GB)
+        # Load lightweight sentence transformer
         try:
-            self.model = SentenceTransformer('all-MiniLM-L6-v2')  # ~90MB
+            self.model = SentenceTransformer('all-MiniLM-L6-v2')
         except:
-            # Fallback to keyword-based matching if model fails
             self.model = None
-            print("Warning: Sentence transformer not available, using keyword-based matching")
+            print("Warning: Using keyword-based matching only")
     
     def match_sections(self, sections: List[Dict], persona: str, job_to_be_done: str) -> List[Dict]:
-        """Match sections to persona and job requirements dynamically."""
+        """Match sections to persona and job requirements."""
         if not sections:
             return []
         
-        # Extract dynamic keywords from persona and job
+        # Extract dynamic keywords
         persona_keywords = self._extract_dynamic_keywords(persona, job_to_be_done)
         
         scored_sections = []
@@ -28,18 +27,16 @@ class PersonaMatcher:
         for section in sections:
             # Calculate relevance score
             if self.model:
-                # Use semantic similarity + keyword matching
                 semantic_score = self._calculate_semantic_similarity(section, persona, job_to_be_done)
                 keyword_score = self._calculate_keyword_relevance(section, persona_keywords)
                 relevance_score = (0.7 * semantic_score) + (0.3 * keyword_score)
             else:
-                # Use only keyword matching
                 relevance_score = self._calculate_keyword_relevance(section, persona_keywords)
             
             section_copy = section.copy()
             section_copy["relevance_score"] = relevance_score
             
-            # Process subsections
+            # Process and score subsections
             scored_subsections = []
             for subsection in section.get("subsections", []):
                 subsection_score = self._calculate_subsection_relevance(
@@ -49,20 +46,20 @@ class PersonaMatcher:
                 subsection_copy["relevance_score"] = subsection_score
                 scored_subsections.append(subsection_copy)
             
-            # Sort subsections by relevance and keep top 3
+            # Keep top 2 subsections per section
             section_copy["subsections"] = sorted(
                 scored_subsections, 
                 key=lambda x: x["relevance_score"], 
                 reverse=True
-            )[:3]
+            )[:2]
             
             scored_sections.append(section_copy)
         
-        # Sort sections by relevance
+        # Sort by relevance and assign ranks
         scored_sections.sort(key=lambda x: x["relevance_score"], reverse=True)
         
-        # Assign importance ranks to top sections
-        top_sections = scored_sections[:15]  # Keep top 15 sections
+        # Keep top 5 sections and assign importance ranks
+        top_sections = scored_sections[:5]
         for i, section in enumerate(top_sections):
             section["importance_rank"] = i + 1
         
@@ -72,7 +69,7 @@ class PersonaMatcher:
         """Extract keywords dynamically from persona and job description."""
         combined_text = f"{persona} {job_to_be_done}".lower()
         
-        # Extract meaningful terms (3+ characters, alphabetic)
+        # Extract meaningful terms
         words = re.findall(r'\b[a-zA-Z]{3,}\b', combined_text)
         
         # Remove common stopwords
@@ -84,18 +81,7 @@ class PersonaMatcher:
         
         keywords = [word for word in words if word not in stopwords and len(word) > 2]
         
-        # Add stemmed versions and synonyms
-        expanded_keywords = keywords.copy()
-        for keyword in keywords:
-            # Add partial matches
-            if keyword.endswith('ing'):
-                expanded_keywords.append(keyword[:-3])
-            elif keyword.endswith('ed'):
-                expanded_keywords.append(keyword[:-2])
-            elif keyword.endswith('s'):
-                expanded_keywords.append(keyword[:-1])
-        
-        return list(set(expanded_keywords))  # Remove duplicates
+        return list(set(keywords))
     
     def _calculate_semantic_similarity(self, section: Dict, persona: str, job_to_be_done: str) -> float:
         """Calculate semantic similarity using sentence transformer."""
@@ -103,20 +89,17 @@ class PersonaMatcher:
             return 0.0
         
         try:
-            # Create query embedding
             query_text = f"{persona} {job_to_be_done}"
             query_embedding = self.model.encode(query_text)
             
-            # Create section embedding (limit content length for efficiency)
             section_text = f"{section['title']} {section['content'][:500]}"
             section_embedding = self.model.encode(section_text)
             
-            # Calculate cosine similarity
             similarity = np.dot(query_embedding, section_embedding) / (
                 np.linalg.norm(query_embedding) * np.linalg.norm(section_embedding)
             )
             
-            return max(0.0, similarity)  # Ensure non-negative
+            return max(0.0, similarity)
         except:
             return 0.0
     
@@ -137,7 +120,7 @@ class PersonaMatcher:
                 if keyword in word or word in keyword:
                     score += 0.5
                     
-            # Title match bonus (higher weight)
+            # Title match bonus
             if keyword in section["title"].lower():
                 score += 3.0
         
@@ -157,15 +140,12 @@ class PersonaMatcher:
         score = 0.0
         
         for keyword in keywords:
-            # Exact match
             score += word_freq.get(keyword, 0) * 1.5
             
-            # Partial match
             for word in text_words:
                 if keyword in word or word in keyword:
                     score += 0.3
         
-        # Normalize by content length
         content_length = len(text_words)
         if content_length > 0:
             score = score / math.log(content_length + 1)

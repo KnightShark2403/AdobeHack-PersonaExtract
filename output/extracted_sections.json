@@ -1,323 +1,80 @@
 {
   "metadata": {
-    "timestamp": "2025-07-18T19:57:27.243417",
-    "persona": "Human Role in an AI-Driven Future",
-    "job_to_be_done": "Literature review for deep learning research",
-    "processed_documents": [
-      {
-        "name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-        "title": "The Rise of Agentic AI: The Future of",
-        "pages": 4
-      },
-      {
-        "name": "22ISE342-Web Design Technology.pdf",
-        "title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-        "pages": 167
-      }
+    "input_documents": [
+      "South of France - Things to Do.pdf",
+      "South of France - Cuisine.pdf",
+      "South of France - Tips and Tricks.pdf",
+      "South of France - History.pdf",
+      "South of France - Restaurants and Hotels.pdf",
+      "South of France - Cities.pdf",
+      "South of France - Traditions and Culture.pdf"
     ],
-    "total_sections_extracted": 15,
-    "processing_version": "1.0"
+    "persona": "Travel Planner",
+    "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
+    "processing_timestamp": "2025-07-21T10:43:10.709346"
   },
   "extracted_sections": [
     {
-      "section_title": "6. Human Role in an AI-Driven Future",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 3,
-      "heading_level": 1,
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Layering: The weather can vary, so pack layers to stay comfortable in diﬀerent",
       "importance_rank": 1,
-      "relevance_score": 3.255,
-      "content_preview": "Despite its capabilities, Agentic AI does not eliminate the need for human expertise. Rather, it shifts the human role from executor to overseer. The future workforce will be tasked ",
-      "subsections": [
-        {
-          "summary": "Despite its capabilities, Agentic AI does not eliminate the need for human expertise.",
-          "key_content": "Despite its capabilities, Agentic AI does not eliminate the need for human expertise. Rather, it shifts the human role from executor to overseer. The future workforce will be tasked",
-          "references": [],
-          "relevance_score": 2.2099
-        }
-      ]
+      "page_number": 2
     },
     {
-      "section_title": "5. Enablers of Agentic AI",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 3,
-      "heading_level": 1,
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Introduction",
       "importance_rank": 2,
-      "relevance_score": 0.6888,
-      "content_preview": "- Ubiquity of APIs: Most modern applications are programmable, allowing agents to manipulate them like human users. - Task Environment Integration: Agentic AI can interface with spreadsheets, browsers...",
-      "subsections": [
-        {
-          "summary": "- Ubiquity of APIs: Most modern applications are programmable, allowing agents to manipulate them like human users. - Task Environment Integration: Agentic AI can interface with spreadsheets, browsers, databases, and communication tools seamlessly.",
-          "key_content": "- Ubiquity of APIs: Most modern applications are programmable, allowing agents to manipulate them like human users. - Task Environment Integration: Agentic AI can interface with spreadsheets, browsers, databases, and communication tools seamlessly. - Memory and Feedback Loops: Advanced models can reflect on outcomes, learn from feedback, and retry failed actions autonomously. - Foundation Models: Large Language Models (LLMs) act as the cognitive engine powering reasoning and decision-making.",
-          "references": [],
-          "relevance_score": 0.9487
-        },
-        {
-          "summary": "These technologies combine to form intelligent agents capable of enterprise-level functionality.",
-          "key_content": "These technologies combine to form intelligent agents capable of enterprise-level functionality.",
-          "references": [],
-          "relevance_score": 0.0
-        }
-      ]
+      "page_number": 1
     },
     {
-      "section_title": "Executive Summary",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 1,
-      "heading_level": 2,
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Accessories: A scarf, sunglasses for sunny winter days, and a travel-sized hand",
       "importance_rank": 3,
-      "relevance_score": 0.6605,
-      "content_preview": "Agentic AI represents a transformative shift in the landscape of artificial intelligence. Unlike traditional AI, which requires explicit prompts or direction, agentic systems possess the ability to pe...",
-      "subsections": [
-        {
-          "summary": "Agentic AI represents a transformative shift in the landscape of artificial intelligence. Unlike traditional AI, which requires explicit prompts or direction, agentic systems possess the ability to perceive, plan, act, and adapt with minimal human oversight.",
-          "key_content": "Agentic AI represents a transformative shift in the landscape of artificial intelligence. Unlike traditional AI, which requires explicit prompts or direction, agentic systems possess the ability to perceive, plan, act, and adapt with minimal human oversight. This evolution is rapidly accelerating the automation of knowledge-based tasks across multiple industries. This document explores the development of agentic AI, its operational capabilities, and its implications for the future of work.",
-          "references": [],
-          "relevance_score": 0.8866
-        }
-      ]
+      "page_number": 3
     },
     {
-      "section_title": "2. Defining Agentic AI",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 1,
-      "heading_level": 2,
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Makeup: Pack essentials in a travel-sized makeup bag.",
       "importance_rank": 4,
-      "relevance_score": 0.6101,
-      "content_preview": "Agentic AI refers to autonomous AI systems capable of managing workflows, making decisions, and interacting with digital tools on behalf of users. Key characteristics include: - Autonomy: Operates wit...",
-      "subsections": [
-        {
-          "summary": "Agentic AI refers to autonomous AI systems capable of managing workflows, making decisions, and interacting with digital tools on behalf of users. Key characteristics include: - Autonomy: Operates without constant human input - Multi-step reasoning: Can plan and execute task sequences - Tool integration: Interfaces with external software, APIs, and data sources - Memory and adaptation: Retains knowledge and improves performance over time These systems simulate human-like cognitive workflows, enabling businesses to offload a range of operational responsibilities.",
-          "key_content": "Agentic AI refers to autonomous AI systems capable of managing workflows, making decisions, and interacting with digital tools on behalf of users. Key characteristics include: - Autonomy: Operates without constant human input - Multi-step reasoning: Can plan and execute task sequences - Tool integration: Interfaces with external software, APIs, and data sources - Memory and adaptation: Retains knowledge and improves performance over time These systems simulate human-like cognitive workflows, enabling businesses to offload a range of operational responsibilities.",
-          "references": [],
-          "relevance_score": 0.8532
-        }
-      ]
+      "page_number": 4
     },
     {
-      "section_title": "Web links and Video Lectures (e-Resources):",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 4,
-      "heading_level": 1,
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Bordeaux : Take a day trip to the world-renowned wine region and visit its prestigious",
       "importance_rank": 5,
-      "relevance_score": 0.5536,
-      "content_preview": " https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction  https://www.browserstack.com/guide/top-html5-features  https://www.w3schools.com/php/php_intro.asp  https://www.w3schools.com/js...",
-      "subsections": [
-        {
-          "summary": "ac. in/aic20_sp11/preview Activity-Based Learning (Suggested Activities in Class)/ Practical Based learning  Demonstration mini projects.",
-          "key_content": "ac. in/aic20_sp11/preview Activity-Based Learning (Suggested Activities in Class)/ Practical Based learning  Demonstration mini projects.  Contents related activities (Activity-based discussions)  Organizing Group wise discussions  Seminars MODULE 1.",
-          "references": [],
-          "relevance_score": 1.3812
-        },
-        {
-          "summary": " https://developer. org/en-US/docs/Web/XML/XML_introduction  https://www.",
-          "key_content": " https://developer. mozilla. org/en-US/docs/Web/XML/XML_introduction  https://www. browserstack.",
-          "references": [],
-          "relevance_score": 0.0
-        },
-        {
-          "summary": "com/guide/top-html5-features  https://www.",
-          "key_content": "com/guide/top-html5-features  https://www. w3schools. com/php/php_intro. asp  https://www.",
-          "references": [],
-          "relevance_score": 0.0
-        }
-      ]
+      "page_number": 5
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Keep them separate from the originals. • Portable Laundry Kit: A small laundry kit with detergent and a travel clothesline can be handy for longer trips. • Multi-Purpose Shoes: Choose shoes that are comfortable for walking but can also be worn to a nice dinner. • Travel Pillow and Blanket: A compact travel pillow and blanket can make long flights or train rides more comfortable.",
+      "page_number": 2
     },
     {
-      "section_title": "2025 onward",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 2,
-      "heading_level": 2,
-      "importance_rank": 6,
-      "relevance_score": 0.5362,
-      "content_preview": "Scalable agentic platforms automating end- to-end business processes Agentic AI is no longer a research concept—it is now operational and integrated into real- world enterprises. ",
-      "subsections": [
-        {
-          "summary": "Scalable agentic platforms automating end- to-end business processes Agentic AI is no longer a research concept—it is now operational and integrated into real- world enterprises.",
-          "key_content": "Scalable agentic platforms automating end- to-end business processes Agentic AI is no longer a research concept—it is now operational and integrated into real- world enterprises.",
-          "references": [],
-          "relevance_score": 0.5912
-        }
-      ]
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "• Travel-Sized Toiletries: Bring travel-sized toiletries to save space and comply with airline regulations. • Reusable Bags: Pack a few reusable bags for laundry, shoes, or shopping. • First Aid Kit: Include a small first aid kit with band-aids, antiseptic wipes, and any necessary medications. • Copies of Important Documents: Make copies of your passport, travel insurance, and other important documents.",
+      "page_number": 2
     },
     {
-      "section_title": "3. Timeline of Evolution",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 2,
-      "heading_level": 1,
-      "importance_rank": 7,
-      "relevance_score": 0.5209,
-      "content_preview": "Phase Description Pre-2020 Rule-based systems and narrow AI handled isolated tasks 2020–2023 Emergence of generative AI (e.g., GPT models) requiring human prompts 2023–2025 Rise of autonomous agents (...",
-      "subsections": [
-        {
-          "summary": "Phase Description Pre-2020 Rule-based systems and narrow AI handled isolated tasks 2020–2023 Emergence of generative AI (e.",
-          "key_content": "Phase Description Pre-2020 Rule-based systems and narrow AI handled isolated tasks 2020–2023 Emergence of generative AI (e. g. , GPT models) requiring human prompts 2023–2025 Rise of autonomous agents (e. g.",
-          "references": [],
-          "relevance_score": 0.5823
-        },
-        {
-          "summary": ", AutoGPT, BabyAGI) capable of chaining tasks.",
-          "key_content": ", AutoGPT, BabyAGI) capable of chaining tasks.",
-          "references": [],
-          "relevance_score": 0.0
-        }
-      ]
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Planning a trip to the South of France requires thoughtful preparation to ensure a comfortable and enjoyable experience. This guide covers everything from packing essentials to travel tips, catering to all seasons and various activities. Whether you're traveling solo, with kids, or in a group, this guide will help you make the most of your trip.",
+      "page_number": 1
     },
     {
-      "section_title": "4. Impact on Job Functions",
-      "document_name": "The_Rise_of_Agentic_AI(1)(1).pdf",
-      "document_title": "The Rise of Agentic AI: The Future of",
-      "page_number": 2,
-      "heading_level": 1,
-      "importance_rank": 8,
-      "relevance_score": 0.4589,
-      "content_preview": "Industry Automated Functions Customer Support Handling tickets, responding to inquiries, managing workflows Software Engineering Writing, debugging, deploying, and maintaining code autonomously Market...",
-      "subsections": [
-        {
-          "summary": "Industry Automated Functions Customer Support Handling tickets, responding to inquiries, managing workflows Software Engineering Writing, debugging, deploying, and maintaining code autonomously Marketing Generating content, managing campaigns, analyzing performance metrics Finance Budgeting, forecasting, auditing, and fraud detection Legal Document review, contract generation, compliance checks Healthcare Scheduling, diagnostics assistance, data interpretation, and reporting Agentic AI is particularly effective in roles requiring consistency, scalability, and data- intensive decision-making.",
-          "key_content": "Industry Automated Functions Customer Support Handling tickets, responding to inquiries, managing workflows Software Engineering Writing, debugging, deploying, and maintaining code autonomously Marketing Generating content, managing campaigns, analyzing performance metrics Finance Budgeting, forecasting, auditing, and fraud detection Legal Document review, contract generation, compliance checks Healthcare Scheduling, diagnostics assistance, data interpretation, and reporting Agentic AI is particularly effective in roles requiring consistency, scalability, and data- intensive decision-making.",
-          "references": [],
-          "relevance_score": 0.5069
-        }
-      ]
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "warmer. • Additional Tips: Winter is mild compared to other regions, but it's still important to pack warm clothing for cooler evenings. Consider packing thermal underwear for extra warmth.",
+      "page_number": 3
     },
     {
-      "section_title": "Why Study JavaScript?",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 105,
-      "heading_level": 1,
-      "importance_rank": 9,
-      "relevance_score": 0.4314,
-      "content_preview": "JavaScript is one of the 3 languages all web developers must learn: ",
-      "subsections": [
-        {
-          "summary": "JavaScript is one of the 3 languages all web developers must learn:",
-          "key_content": "JavaScript is one of the 3 languages all web developers must learn:",
-          "references": [],
-          "relevance_score": 0.912
-        }
-      ]
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "• Additional Items: A small sewing kit, nail clippers, and a razor. • Additional Tips: Consider packing a travel-sized perfume or cologne to freshen up on the go.",
+      "page_number": 4
     },
     {
-      "section_title": "Interoperability: PHP can easily integrate with various databases (MySQL, PostgreSQL,",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 144,
-      "heading_level": 1,
-      "importance_rank": 10,
-      "relevance_score": 0.4194,
-      "content_preview": "SQLite), web servers, and other technologies. It supports numerous protocols, making it versatile for web development. • Ease of Learning: PHP has a syntax that is relatively easy to learn, especially...",
-      "subsections": [
-        {
-          "summary": "SQLite), web servers, and other technologies. • Ease of Learning: PHP has a syntax that is relatively easy to learn, especially for those with a background in C-style languages.",
-          "key_content": "SQLite), web servers, and other technologies. It supports numerous protocols, making it versatile for web development. • Ease of Learning: PHP has a syntax that is relatively easy to learn, especially for those with a background in C-style languages. Its simplicity makes it accessible for beginners while providing powerful features for advanced users.",
-          "references": [],
-          "relevance_score": 1.1099
-        },
-        {
-          "summary": "• HTML Embedded: PHP code is embedded directly within HTML, allowing developers to mix dynamic server-side logic with static HTML content.",
-          "key_content": "• HTML Embedded: PHP code is embedded directly within HTML, allowing developers to mix dynamic server-side logic with static HTML content. This makes it convenient for creating dynamic web pages. •.",
-          "references": [],
-          "relevance_score": 0.0
-        }
-      ]
-    },
-    {
-      "section_title": "16. Input Type search",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 67,
-      "heading_level": 1,
-      "importance_rank": 11,
-      "relevance_score": 0.39,
-      "content_preview": "The input type search allows user to enter their search queries in the text ﬁelds. It is similar to input type text. For example, < label for = \"search\" >Search: </ label >< input type = \"search\" id =...",
-      "subsections": [
-        {
-          "summary": "The input type search allows user to enter their search queries in the text ﬁelds. For example, < label for = \"search\" >Search: </ label >< input type = \"search\" id = \"search\" >.",
-          "key_content": "The input type search allows user to enter their search queries in the text ﬁelds. It is similar to input type text. For example, < label for = \"search\" >Search: </ label >< input type = \"search\" id = \"search\" >",
-          "references": [],
-          "relevance_score": 0.5402
-        }
-      ]
-    },
-    {
-      "section_title": "Reference Books:",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 4,
-      "heading_level": 1,
-      "importance_rank": 12,
-      "relevance_score": 0.3728,
-      "content_preview": "1) Paul Deitel, Harvey Deitel, Abbey Deitel, “Internet & World Wide Web How to program”, 5th Edition, Pearson Education/PHI, 2012. 2) Robin Nixon, “Learning PHP, My SQL &Java Script with jQuery, CSS a...",
-      "subsections": [
-        {
-          "summary": "1) Paul Deitel, Harvey Deitel, Abbey Deitel, “Internet & World Wide Web How to program”, 5th Edition, Pearson Education/PHI, 2012. 2) Robin Nixon, “Learning PHP, My SQL &Java Script with jQuery, CSS and HTML5”,5thEdition, O’Reilly Publications, 2018.",
-          "key_content": "1) Paul Deitel, Harvey Deitel, Abbey Deitel, “Internet & World Wide Web How to program”, 5th Edition, Pearson Education/PHI, 2012. 2) Robin Nixon, “Learning PHP, My SQL &Java Script with jQuery, CSS and HTML5”,5thEdition, O’Reilly Publications, 2018.",
-          "references": [],
-          "relevance_score": 0.6174
-        }
-      ]
-    },
-    {
-      "section_title": "HTML Paragraphs",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 10,
-      "heading_level": 1,
-      "importance_rank": 13,
-      "relevance_score": 0.364,
-      "content_preview": "The HTML <p> tag is used to create paragraphs. For example, < p >HTML is fun to learn.</ p > ",
-      "subsections": [
-        {
-          "summary": "The HTML <p> tag is used to create paragraphs.",
-          "key_content": "The HTML <p> tag is used to create paragraphs. For example, < p >HTML is fun to learn.</ p >",
-          "references": [],
-          "relevance_score": 0.8451
-        }
-      ]
-    },
-    {
-      "section_title": "Note: Keep note of which elements are inline-level and which are block-level. It will be important",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 15,
-      "heading_level": 1,
-      "importance_rank": 14,
-      "relevance_score": 0.3004,
-      "content_preview": "later when we learn CSS. ",
-      "subsections": [
-        {
-          "summary": "later when we learn CSS.",
-          "key_content": "later when we learn CSS.",
-          "references": [],
-          "relevance_score": 1.3048
-        }
-      ]
-    },
-    {
-      "section_title": "Browser Output",
-      "document_name": "22ISE342-Web Design Technology.pdf",
-      "document_title": "DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING",
-      "page_number": 30,
-      "heading_level": 1,
-      "importance_rank": 15,
-      "relevance_score": 0.2956,
-      "content_preview": "Here, <li>Apple</li>, <li>Orange</li>, and <li>Mango</li> are the list items. To learn more about unordered lists, visit HTML Unordered Lists . ",
-      "subsections": [
-        {
-          "summary": "Here, <li>Apple</li>, <li>Orange</li>, and <li>Mango</li> are the list items. To learn more about unordered lists, visit HTML Unordered Lists .",
-          "key_content": "Here, <li>Apple</li>, <li>Orange</li>, and <li>Mango</li> are the list items. To learn more about unordered lists, visit HTML Unordered Lists .",
-          "references": [],
-          "relevance_score": 0.7132
-        }
-      ]
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "châteaux.",
+      "page_number": 5
     }
   ]
 }

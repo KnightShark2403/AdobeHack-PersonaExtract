@@ -3,45 +3,41 @@ from datetime import datetime
 from typing import List, Dict
 
 class OutputFormatter:
-    def format_output(self, document_metadata: List[Dict], persona: str, 
+    def format_output(self, input_documents: List[str], persona: str, 
                      job_to_be_done: str, sections: List[Dict]) -> Dict:
-        """Format output according to required JSON schema."""
+        """Format output to match the exact required JSON schema."""
         
+        # Create extracted_sections list (top-level sections only)
+        extracted_sections = []
+        subsection_analysis = []
+        
+        for section in sections[:5]:  # Keep only top 5 sections
+            # Add to extracted_sections
+            extracted_sections.append({
+                "document": section.get("document_name", "Unknown"),
+                "section_title": section["title"],
+                "importance_rank": section.get("importance_rank", 0),
+                "page_number": section["page"]
+            })
+            
+            # Add subsections to subsection_analysis
+            for subsection in section.get("subsections", []):
+                subsection_analysis.append({
+                    "document": section.get("document_name", "Unknown"),
+                    "refined_text": subsection.get("content", ""),
+                    "page_number": section["page"]
+                })
+        
+        # Create final output structure matching the expected format
         output = {
             "metadata": {
-                "timestamp": datetime.now().isoformat(),
+                "input_documents": input_documents,
                 "persona": persona,
                 "job_to_be_done": job_to_be_done,
-                "processed_documents": document_metadata,
-                "total_sections_extracted": len(sections),
-                "processing_version": "1.0"
+                "processing_timestamp": datetime.now().isoformat()
             },
-            "extracted_sections": []
+            "extracted_sections": extracted_sections,
+            "subsection_analysis": subsection_analysis
         }
-        
-        for section in sections:
-            formatted_section = {
-                "section_title": section["title"],
-                "document_name": section.get("document_name", "Unknown"),
-                "document_title": section.get("document_title", "Unknown"),
-                "page_number": section["page"],
-                "heading_level": section["level"],
-                "importance_rank": section.get("importance_rank", 0),
-                "relevance_score": round(section.get("relevance_score", 0.0), 4),
-                "content_preview": section["content"][:200] + "..." if len(section["content"]) > 200 else section["content"],
-                "subsections": []
-            }
-            
-            # Format subsections
-            for subsection in section.get("subsections", []):
-                formatted_subsection = {
-                    "summary": subsection.get("summary", ""),
-                    "key_content": subsection.get("content", ""),
-                    "references": subsection.get("references", []),
-                    "relevance_score": round(subsection.get("relevance_score", 0.0), 4)
-                }
-                formatted_section["subsections"].append(formatted_subsection)
-            
-            output["extracted_sections"].append(formatted_section)
         
         return output

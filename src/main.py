@@ -20,21 +20,33 @@ def main():
     persona_matcher = PersonaMatcher()
     output_formatter = OutputFormatter()
     
-    # Load configuration
+    # Load configuration from config.json
     config_file = input_dir / "config.json"
     if config_file.exists():
         with open(config_file, 'r') as f:
             config = json.load(f)
-        persona = config.get("persona", "General Researcher")
-        job_to_be_done = config.get("job_to_be_done", "Extract relevant information")
+        
+        # Extract persona and job info from config structure
+        if "challenge_info" in config:
+            persona_info = config.get("persona", {})
+            job_info = config.get("job_to_be_done", {})
+            persona = persona_info.get("role", "General Researcher")
+            job_to_be_done = job_info.get("task", "Extract relevant information")
+            documents_list = config.get("documents", [])
+        else:
+            # Fallback for simple config format
+            persona = config.get("persona", "General Researcher")
+            job_to_be_done = config.get("job_to_be_done", "Extract relevant information")
+            documents_list = []
     else:
         persona = "General Researcher"
         job_to_be_done = "Extract relevant information"
+        documents_list = []
     
     # Process all PDFs
     pdf_files = list(input_dir.glob("*.pdf"))
     all_sections = []
-    document_metadata = []
+    processed_documents = []
     
     start_time = time.time()
     
@@ -48,29 +60,25 @@ def main():
             # Extract sections
             sections = section_extractor.extract_sections(document_data)
             
-            # Add document metadata
+            # Add document metadata to each section
             for section in sections:
                 section["document_name"] = pdf_file.name
                 section["document_title"] = document_data["title"]
             
             all_sections.extend(sections)
-            document_metadata.append({
-                "name": pdf_file.name,
-                "title": document_data["title"],
-                "pages": document_data["total_pages"]
-            })
+            processed_documents.append(pdf_file.name)
             
         except Exception as e:
             print(f"Error processing {pdf_file.name}: {str(e)}")
     
-    # Match all sections to persona across all documents
+    # Match sections to persona
     relevant_sections = persona_matcher.match_sections(
         all_sections, persona, job_to_be_done
     )
     
-    # Format output
+    # Format output according to expected schema
     output_data = output_formatter.format_output(
-        document_metadata, persona, job_to_be_done, relevant_sections
+        processed_documents, persona, job_to_be_done, relevant_sections
     )
     
     # Save output
