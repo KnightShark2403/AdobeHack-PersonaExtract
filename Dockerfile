@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -20,7 +20,6 @@ RUN mkdir -p input output models
 
 # Set environment variables
 ENV PYTHONPATH=/app/src
-ENV TRANSFORMERS_CACHE=/app/models
 
 # Run the application
 CMD ["python", "src/main.py"]

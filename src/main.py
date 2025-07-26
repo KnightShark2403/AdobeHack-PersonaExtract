@@ -1,132 +1,112 @@
-import os
 import json
 import time
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pdf_parser import PDFParser
 from section_extractor import SectionExtractor
 from persona_matcher import PersonaMatcher
 from output_formatter import OutputFormatter
 
-def process_single_pdf(pdf_path, config_data):
-    """Process a single PDF file with better error handling."""
-    try:
-        pdf_parser = PDFParser()
-        section_extractor = SectionExtractor()
-        
-        print(f"Processing {pdf_path.name}...")
-        
-        # Parse PDF with better error handling
-        document_data = pdf_parser.parse(str(pdf_path))
-        
-        if not document_data or not document_data.get("pages"):
-            print(f"Warning: No content extracted from {pdf_path.name}")
-            return None
-        
-        # Extract sections
-        sections = section_extractor.extract_sections(document_data)
-        
-        # Add document metadata
-        for section in sections:
-            section["document_name"] = pdf_path.name
-            section["document_title"] = document_data["title"]
-        
-        return {
-            "pdf_name": pdf_path.name,
-            "sections": sections,
-            "success": True
-        }
-        
-    except Exception as e:
-        print(f"Error processing {pdf_path.name}: {str(e)}")
-        return None
-
 def main():
     input_dir = Path("/app/input")
     output_dir = Path("/app/output")
-    
-    # Ensure directories exist
     output_dir.mkdir(exist_ok=True)
     
     # Load configuration
     config_file = input_dir / "config.json"
-    config = {}
     if config_file.exists():
         with open(config_file, 'r', encoding='utf-8') as f:
             config = json.load(f)
+    else:
+        config = {}
     
-    # Extract persona and job
     persona = config.get("persona", "General Researcher")
     job_to_be_done = config.get("job_to_be_done", "Extract relevant information")
     
-    # Get ALL PDF files with proper filtering
-    pdf_files = []
-    for file_path in input_dir.iterdir():
-        if file_path.is_file() and file_path.suffix.lower() == '.pdf':
-            # Check if file is readable
-            try:
-                if file_path.stat().st_size > 0:  # Not empty
-                    pdf_files.append(file_path)
-                else:
-                    print(f"Skipping empty file: {file_path.name}")
-            except Exception as e:
-                print(f"Cannot access file {file_path.name}: {e}")
-    
-    print(f"Found {len(pdf_files)} PDF files to process:")
-    for pdf in pdf_files:
-        print(f"  - {pdf.name} ({pdf.stat().st_size} bytes)")
+    # Get all PDF files
+    pdf_files = list(input_dir.glob("*.pdf"))[:5]  # Limit to 5 PDFs
+    print(f"Found {len(pdf_files)} PDF files to process")
     
     if not pdf_files:
-        print("ERROR: No valid PDF files found!")
+        print("No PDF files found!")
         return
     
+    # Process all PDFs
     all_sections = []
-    processed_documents = []
+    processed_docs = []
     start_time = time.time()
     
-    # Process PDFs with ThreadPoolExecutor (faster than ProcessPoolExecutor for I/O)
-    with ThreadPoolExecutor(max_workers=3) as executor:
-        # Submit all jobs
-        future_to_pdf = {
-            executor.submit(process_single_pdf, pdf_path, config): pdf_path 
-            for pdf_path in pdf_files
-        }
+    for pdf_file in pdf_files:
+        print(f"Processing {pdf_file.name}...")
         
-        # Collect results
-        for future in as_completed(future_to_pdf):
-            pdf_path = future_to_pdf[future]
-            try:
-                result = future.result(timeout=30)  # 30 second timeout per PDF
-                if result and result["success"]:
-                    all_sections.extend(result["sections"])
-                    processed_documents.append(result["pdf_name"])
-                    print(f"✓ Successfully processed: {result['pdf_name']}")
-                else:
-                    print(f"✗ Failed to process: {pdf_path.name}")
-            except Exception as e:
-                print(f"✗ Exception processing {pdf_path.name}: {str(e)}")
+        # Parse PDF
+        parser = PDFParser()
+        document_data = parser.parse(pdf_file)
+        
+        if not document_data["pages"]:
+            print(f"No content extracted from {pdf_file.name}")
+            continue
+        
+        # Extract sections
+        extractor = SectionExtractor()
+        sections = extractor.extract_sections(document_data)
+        
+        # Add document metadata
+        for section in sections:
+            section["document_name"] = pdf_file.name
+            section["document_title"] = document_data["title"]
+        
+        all_sections.extend(sections)
+        processed_docs.append(pdf_file.name)
+        print(f"✓ Extracted {len(sections)} sections from {pdf_file.name}")
     
-    print(f"Successfully processed {len(processed_documents)} out of {len(pdf_files)} PDFs")
+    print(f"Total sections extracted across all PDFs: {len(all_sections)}")
     
     if not all_sections:
-        print("ERROR: No sections extracted from any PDF!")
+        print("No sections extracted from any PDF!")
         return
     
-    # Continue with persona matching...
-    persona_matcher = PersonaMatcher()
-    relevant_sections = persona_matcher.match_sections(all_sections, persona, job_to_be_done)
+    # Match sections to persona
+    print("Matching sections to persona...")
+    matcher = PersonaMatcher()
+    relevant_sections = matcher.match_sections(all_sections, persona, job_to_be_done)
     
-    # Format and save output
-    output_formatter = OutputFormatter()
-    output_data = output_formatter.format_output(processed_documents, persona, job_to_be_done, relevant_sections)
+    print(f"Found {len(relevant_sections)} relevant sections")
     
-    output_file = output_dir / "extracted_sections.json"
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+    # Format output
+    formatter = OutputFormatter()
+    output_data = formatter.format_output(processed_docs, persona, job_to_be_done, relevant_sections)
+    
+    # Save output with error handling
+    try:
+        output_file = output_dir / "extracted_sections.json"
+        
+        # Ensure output directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write with explicit encoding and error handling
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        
+        # Verify file was written
+        if output_file.exists() and output_file.stat().st_size > 0:
+            print(f"✅ Output successfully saved to {output_file}")
+            print(f"📄 File size: {output_file.stat().st_size} bytes")
+        else:
+            print(f"❌ Output file creation failed!")
+            
+    except Exception as e:
+        print(f"❌ Error saving output: {str(e)}")
+        
+        # Fallback - save to current directory
+        try:
+            with open("extracted_sections.json", 'w') as f:
+                json.dump(output_data, f, indent=2)
+            print("✅ Saved to current directory as fallback")
+        except Exception as e2:
+            print(f"❌ Fallback save also failed: {str(e2)}")
     
     total_time = time.time() - start_time
-    print(f"Total processing time: {total_time:.2f} seconds")
-    print(f"Output saved to {output_file}")
+    print(f"Processing completed in {total_time:.2f} seconds")
 
 if __name__ == "__main__":
     main()
